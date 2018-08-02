@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="org.web3j:utils:3.4.0@jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.web3j/utils/3.4.0/497622588c55badf7241b98d02080f19844f5aa7/utils-3.4.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.web3j/utils/3.4.0/b73dae6d1dc52ed229a3d6a6750e1e499bcaee8d/utils-3.4.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

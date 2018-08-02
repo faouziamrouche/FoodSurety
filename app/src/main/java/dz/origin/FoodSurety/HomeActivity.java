@@ -21,6 +21,14 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import org.web3j.crypto.Credentials;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.utils.Convert;
+
+import java.io.IOException;
+import java.math.BigInteger;
+
 import dz.origin.origin.R;
 
 
@@ -106,30 +114,56 @@ public class HomeActivity extends AppCompatActivity
             }
             else {
                 scanResult = result.getContents();
-//                try {
-//                    EditText edt = (EditText) findViewById(R.id.address_edit_text);
-//                    Web3j web3j = Web3j.build(new HttpService(edt.getText().toString()));
-//                    Credentials credentials = Credentials.create("7e232b9b5b5f64da32f796483b4590bf4fd8a0643e5c7f96f957913282de3f77");;
-//                    try {
-//                        mainContract = MainContract.deploy(
-//                                web3j, credentials,
-//                                new BigInteger("20000000000"),
-//                                BigInteger.valueOf(6721975)).send();
-//                        mainContract.
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                } catch (Exception e) {
-//                    Toast.makeText(this, "here1", Toast.LENGTH_LONG).show();
-//
-//                    e.printStackTrace();
-//                }
 
-                if(scanResult.equals("1") || scanResult.equals("2") ){
-                    Intent productIntent = new Intent(HomeActivity.this, ProductActivity.class);
-                    startActivity(productIntent);
+                Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Web3j web3j = Web3j.build(new HttpService(
+                                "http://192.168.137.1:7000"));
+                            String version = null;
+                            version = web3j.web3ClientVersion().send().getWeb3ClientVersion();
+                            System.out.println("Version : "+version);
+                            Credentials credentials = Credentials.create("11941938a2496488061f022ea918eda5470f1ef4c46e471eb59d278fe83ff641");;
+                            System.out.println(credentials.getAddress());
+                            System.out.println("Sending 1 Wei ("
+                                    + Convert.fromWei("1", Convert.Unit.ETHER).toPlainString() + " Ether)");
+                            MainContract contract = MainContract.deploy(
+                                    web3j, credentials,
+                                    new BigInteger("20000000000"),
+                                    BigInteger.valueOf(6721975)).send();
+
+                            //RemoteCall<TransactionReceipt> t = contract.insertUser("3","Yacine","Detailleur","Adidas", BigInteger.valueOf(20));
+
+                            contract.insertProduct("Milk", BigInteger.valueOf(300)).send();
+                            contract.insertProduct("Beaf", BigInteger.valueOf(300)).send();
+                            contract.insertProduct("Chicken", BigInteger.valueOf(300)).send();
+
+                            System.out.println(contract.getProductAtIndex(BigInteger.valueOf(1)).send().toString());
+
+                            System.out.println(contract.getProduct(BigInteger.valueOf(1)).send().getValue1());
+
+                            if(scanResult.equals("1") || scanResult.equals("2") ){
+                                Intent productIntent = new Intent(HomeActivity.this, ProductActivity.class);
+                                startActivity(productIntent);
+                            }
+                            else    Toast.makeText(homeActivity, "Un produit non reconaissant ou non fiable!", Toast.LENGTH_LONG).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+                t.start();
+                try {
+                    t.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                else    Toast.makeText(this, "Un produit non reconaissant ou non fiable!", Toast.LENGTH_LONG).show();
+
+
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
