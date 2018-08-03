@@ -8,6 +8,13 @@ import android.widget.TextView;
 import dz.origin.origin.R;
 
 public class ProductActivity extends AppCompatActivity {
+    public static String PICTURE;
+    public static String BRAND;
+    public static String DATE;
+    public static String MAXT;
+    public static String MINT;
+    public static String TRANSPORT;
+    public static String FARM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +28,12 @@ public class ProductActivity extends AppCompatActivity {
         TextView transport= findViewById(R.id.transport);
         TextView farm= findViewById(R.id.farm);
         if (HomeActivity.scanResult.equals("2")){
-            brand.setText("Charal");
-            date.setText("1st August 2018 : 3:23pm");
-            maxt.setText("23 C");
-            mint.setText("2 C");
-            transport.setText("Al Oubaid Lmtd");
-            farm.setText("4353");
+            brand.setText(BRAND);
+            date.setText(DATE);
+            maxt.setText(MAXT);
+            mint.setText(MINT);
+            transport.setText(TRANSPORT);
+            farm.setText(FARM);
             picture.setImageResource(R.drawable.meat);
         }
     }
