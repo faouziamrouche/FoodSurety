@@ -1,6 +1,7 @@
-# Origin project:
-A solution for product counterfeiting using Blockchain technology to store the product's informations (Producer, Origin...etc) in a manner that forbids any falsification. 
-This project was the winner of the Leapfrog Hackathon Algiers 2018. 
-This is the Android part of the origin project. 
-Here's the Devpost link : https://devpost.com/software/originproject_ethereum .
-The Ethereum part is : https://github.com/faouziamrouche/OriginProject_Ethereum .
+# FoodSafety project:
+Blockchain-Based Solution for hajj food safety .
+
+Every Single phase in the food supply chain will be stored in our Blockchain , that would give us tracebility and transparency for the responsible authorities to ensure a safe and quality food for our pilgrims.
+
+Here's the Devpost link : https://devpost.com/software/foodsurety .
+The Ethereum smart contracts part is : https://github.com/HaithemKahil/FoodSurety_SmartContracts/ .
